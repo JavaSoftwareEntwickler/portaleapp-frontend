@@ -1,6 +1,30 @@
 <div style="text-align:center">
   <h1>{{ title }}</h1>
-  <button (click)="processaPagamento()">Processa Pagamento</button>
+
+  <form (ngSubmit)="processaPagamento()" #pagamentoForm="ngForm" class="mb-4">
+    <!-- Tipo Pagamento -->
+    <label for="tipoPagamento">Tipo di Pagamento:</label>
+    <select id="tipoPagamento" [(ngModel)]="tipoPagamento" name="tipoPagamento" required>
+      <option value="pagamentocartacredito">Carta di Credito</option>
+      <option value="pagamentobonifico">Bonifico</option>
+      <option value="pagamentopaypal">PayPal</option>
+    </select>
+
+    <!-- Tipo Sconto -->
+    <label for="tipoSconto">Tipo di Sconto:</label>
+    <select id="tipoSconto" [(ngModel)]="tipoSconto" name="tipoSconto" required>
+      <option value="nessunosconto">Nessuno</option>
+      <option value="scontofisso">Fisso</option>
+      <option value="scontopercentuale">Percentuale</option>
+    </select>
+
+    <!-- Prezzo -->
+    <label for="prezzo">Prezzo:</label>
+    <input type="number" id="prezzo" [(ngModel)]="prezzo" name="prezzo" required />
+    <br><br>
+    <button type="submit">Processa Pagamento</button>
+  </form>
+
   <div *ngIf="messaggio">
     <p>{{ messaggio }}</p>
   </div>
