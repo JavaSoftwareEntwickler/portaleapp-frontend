@@ -24,10 +24,11 @@ export class AppComponent {
       prezzo: 100
     };
 
-    this.http.post('http://localhost:8080/pagamento/processa', pagamentoData)
+    this.http.post('http://localhost:8080/pagamento/processa', pagamentoData, { responseType: 'text' })
       .subscribe(
-        (response: any) => {
-          this.messaggio = response.messaggio;
+        (response: string) => {
+
+          this.messaggio = response
         },
         (error) => {
           console.error('Errore nel pagamento:', error);
