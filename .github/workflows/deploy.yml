@@ -25,8 +25,12 @@ jobs:
       run: npm run build -- --configuration production
 
     - name: Copy files to server via rsync
-      run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
-        ./dist/portaleapp-frontend/ root@217.160.163.138:/var/www/portaleapp.com
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_USER: ${{ vars.REMOTE_USER }}
+        REMOTE_HOST: ${{ vars.REMOTE_HOST }}
+        REMOTE_PATH: ${{ vars.REMOTE_PATH }}
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+        ./dist/portaleapp-frontend/ $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+
