@@ -34,7 +34,7 @@
                 <button type="submit" class="btn btn-primary w-100">✅ Processa Pagamento</button>
             </form>
 
-            <div *ngIf="messaggio" class="alert alert-info mt-3 text-center">
+            <div *ngIf="messaggio" [@fadeInOut] class="alert alert-info mt-3 text-center">
                 {{ messaggio }}
             </div>
         </div>
