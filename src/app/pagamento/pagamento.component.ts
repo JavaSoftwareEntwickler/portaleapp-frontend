@@ -27,7 +27,6 @@ export class PagamentoComponent {
   tipoPagamento = 'pagamentocartacredito';
   tipoSconto = 'nessunosconto';
   prezzo = 100;
-  mostraMessaggio = false;
 
   constructor(private pagamentoService: PagamentoService) {}
 
@@ -37,19 +36,16 @@ export class PagamentoComponent {
       tipoSconto: this.tipoSconto,
       prezzo: this.prezzo
     };
-
     this.pagamentoService.processaPagamento(pagamentoData).subscribe({
-      next: (response) => this.messaggio = response,
+      next: (response) => this.setMessaggio(response),
       error: (err) => console.error('Errore nel pagamento: ', err)
     });
-    this.messaggio = `Pagamento ${this.tipoPagamento} - Sconto ${this.tipoSconto} - €${this.prezzo}`;
-    this.mostraMessaggio = true;
-
-    setTimeout(() => {
-      this.mostraMessaggio = false;
-      // Facoltativo: azzera il testo dopo la dissolvenza
-      setTimeout(() => this.messaggio = undefined, 500);
-    }, 4000);
+  }
+  
+  private setMessaggio(testo: string): void {
+    this.messaggio = testo;
+    // Nasconde il messaggio dopo 4s con animazione fade-out
+    setTimeout(() => this.messaggio = undefined, 4500);
   }
 }
 
