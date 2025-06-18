@@ -27,7 +27,7 @@ jobs:
     - name: Setup SSH key
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_github_ci
+        echo "{{ SSH_PRIVATE_KEY }}" > ~/.ssh/id_github_ci
         chmod 600 ~/.ssh/id_github_ci
         
     - name: Copy files to server via rsync
