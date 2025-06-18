@@ -1,0 +1,32 @@
+name: Deploy Angular App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.16.0'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Angular app
+      run: npm run build -- --configuration production
+
+    - name: Copy files to server via rsync
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+        ./dist/portaleapp-frontend/ root@217.160.163.138:/var/www/portaleapp.com
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
