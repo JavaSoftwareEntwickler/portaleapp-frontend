@@ -28,17 +28,14 @@ jobs:
     
       run: |
         mkdir -p ~/.ssh
-        echo "{{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_github_ci
-        chmod 600 ~/.ssh/id_github_ci
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
         
     - name: Copy files to server via rsync
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_USER: ${{ vars.REMOTE_USER }}
-        REMOTE_HOST: ${{ vars.REMOTE_HOST }}
-        REMOTE_PATH: ${{ vars.REMOTE_PATH }}
-        REMOTE_PORT: ${{ vars.REMOTE_PORT }} 
+        REMOTE_USER: ${{ variables.REMOTE_USER }}
+        REMOTE_HOST: ${{ variables.REMOTE_HOST }}
+        REMOTE_PATH: ${{ variables.REMOTE_PATH }}
+        REMOTE_PORT: ${{ variables.REMOTE_PORT }} 
       run: |
-        rsync -avz -e "ssh -i ~/.ssh/id_github_ci -p $REMOTE_PORT -o StrictHostKeyChecking=no" \
-        ./dist/portaleapp-frontend/ $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+        scp -o StrictHostKeyChecking=no" -i ~/.ssh/id_rsa -r ./dist/portaleapp-frontend/ $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
 
