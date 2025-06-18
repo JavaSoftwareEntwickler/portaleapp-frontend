@@ -1,0 +1,16 @@
+h1 {
+    color: blue;
+}
+
+h2 {
+    color: blue;
+}
+
+button {
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.card {
+    border-radius: 1rem;
+}
