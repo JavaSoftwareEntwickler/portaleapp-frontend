@@ -38,5 +38,5 @@ jobs:
         REMOTE_PATH: ${{ vars.REMOTE_PATH }}
         REMOTE_PORT: ${{ vars.REMOTE_PORT }} 
       run: |
-        scp -o StrictHostKeyChecking=no" -i ~/.ssh/id_rsa -r ./dist/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+        scp -o StrictHostKeyChecking=no" -i ~/.ssh/id_rsa -P $REMOTE_PORT -r ./dist/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
 
