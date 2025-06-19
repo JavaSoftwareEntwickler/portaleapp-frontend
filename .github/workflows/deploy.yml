@@ -29,7 +29,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
         
-    - name: Copy files to server via rsync
+    - name: Copy files to server via SCP e non rsync
       env:
         REMOTE_USER: ${{ vars.REMOTE_USER }}
         REMOTE_HOST: ${{ vars.REMOTE_HOST }}
